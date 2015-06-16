@@ -1,0 +1,4 @@
+TODO:
+
+1) board rendered before alert
+2) apple eating

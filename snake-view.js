@@ -24,23 +24,22 @@
     boardForPage.forEach(function(row) {
       row.forEach(function(element) {
         if (element === ".") {
-          this.$el.append($('<div class="empty"></div>'));
+          this.$el.append($('<div class="empty displayed"></div>'));
+        } else if (element === "S") {
+          this.$el.append($('<div class="snake displayed"></div>'));
         } else {
-          this.$el.append($('<div class="full"></div>'));
+          this.$el.append($('<div class="apple displayed"></div>'));
         }
       }.bind(this));
       this.$el.append('<div class="clearfix"></div>');
     }.bind(this));
-    // debugger;
   };
 
   Snakes.restartGame = function() {
-    // debugger;
     Snakes.currentView.$el.off();
     clearInterval(Snakes.currentView.intervId);
     Snakes.currentView.board.clear();
 
     Snakes.currentView = new Snakes.View($('body'));
-    // debugger;
   };
 })();

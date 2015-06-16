@@ -3,6 +3,8 @@
     Snakes = {};
   }
 
+  // COORDS CLASS
+
   var Coords = Snakes.Coords = function Coords(x, y, dir) {
     // coord implementation will by linked list
     this.coords = [x, y];
@@ -37,6 +39,10 @@
     };
   };
 
+
+
+  // SNAKE CLASS
+
   var Snake = Snakes.Snake = function Snake(board) {
     this.board = board;
     this.badDirs = { "N": "S", "S": "N", "W": "E", "E": "W" };
@@ -68,6 +74,10 @@
         if (cur.coords[0] === 25 || cur.coords[0] === -1 || cur.coords[1] === -1 || cur.coords[1] === 25) {
           return false;
         }
+        var x = this.board.board[cur.coords[0]][cur.coords[1]];
+        if (x === 0) {
+          this.eatApple();
+        }
         this.board.board[cur.coords[0]][cur.coords[1]] = 1;
       }
 
@@ -84,10 +94,12 @@
     this.board.board[last_loc[0]][last_loc[1]] = undefined;
   };
 
+  Snake.prototype.eatApple = function() {
+    console.log('ate');
+  };
 
 
-
-
+  // BOARD CLASS
 
   var Board = Snakes.Board = function Board() {
     this.board = new Array(25);
@@ -95,6 +107,19 @@
       this.board[i] = new Array(25);
     }
     this.snake = new Snake(this);
+    this.assignApple();
+  };
+
+  Board.prototype.assignApple = function () {
+    var x = Math.floor(Math.random() * 25);
+    var y = Math.floor(Math.random() * 25);
+
+    while (typeof this.board[x][y] !== "undefined") {
+      x = Math.floor(Math.random() * 25);
+      y = Math.floor(Math.random() * 25);
+    }
+
+    this.board[x][y] = 0;
   };
 
   Board.prototype.clear = function () {
@@ -117,10 +142,12 @@
       renderedBoard[i] = new Array(25);
       for (var j = 0; j < this.board[i].length; j++) {
         // check board coords. also, board needs to be updated on each move
-        if (this.board[i][j] === undefined) {
+        if (typeof this.board[i][j] === "undefined") {
           renderedBoard[i][j] = '.';
-        } else {
+        } else if (this.board[i][j] === 1) {
           renderedBoard[i][j] = 'S';
+        } else {
+          renderedBoard[i][j] = 'a';
         }
       }
     }
