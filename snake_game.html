@@ -1,9 +1,12 @@
 
+<head>
+  <link rel="stylesheet" href="./snake_game.css" media="screen" title="no title" charset="utf-8">
+</head>
 <body>
 </body>
 <script type="text/javascript" src="./jquery-2.1.4.js"></script>
 <script type="text/javascript" src="./snake.js"></script>
 <script type="text/javascript" src="./snake-view.js"></script>
 <script type="text/javascript">
-  new Snakes.view($(document.documentElement));
+  Snakes.currentView = new Snakes.View($('body'));
 </script>
