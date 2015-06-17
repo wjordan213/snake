@@ -61,38 +61,40 @@
   };
 
   Snake.prototype.move = function() {
-    var cur = this.head;
-    var last_dir;
-    var last_loc;
-    while ((typeof cur !== "undefined")) {
-      last_loc = cur.coords.slice(0);
-      cur.moves[cur.dir]();
+    // update board at this.head.coords
+    var appleEaten;
 
-      if (cur === this.head) {
-        // current iteration is head
-        // set new head on board
-        if (cur.coords[0] === 25 || cur.coords[0] === -1 || cur.coords[1] === -1 || cur.coords[1] === 25) {
-          return false;
-        }
-        var x = this.board.board[cur.coords[0]][cur.coords[1]];
-        if (x === 0) {
-          this.eatApple();
-          this.board.assignApple();
-        }
-        this.board.board[cur.coords[0]][cur.coords[1]] = 1;
-      }
+    var newHead = new Coords(this.head.coords[0], this.head.coords[1], this.head.dir, undefined, this.head);
 
-      if (last_dir) {
-        // third iteration and beyond
-        cur.dir = last_dir;
-      } else if (cur.forward) {
-        // second iteration
-        last_dir = cur.dir;
-        cur.dir = cur.forward.dir;
-      }
-      cur = cur.back;
+    newHead.moves[this.head.dir]();
+
+    if (newHead.coords[0] === 25 || newHead.coords[0] === -1 || newHead.coords[1] === -1 || newHead.coords[1] === 25) {
+      return false;
     }
-    this.board.board[last_loc[0]][last_loc[1]] = undefined;
+
+    this.head.forward = newHead;
+    this.head = newHead;
+
+    var x = this.board.board[this.head.coords[0]][this.head.coords[1]];
+    if (x === 0) {
+      appleEaten = true;
+      this.board.assignApple();
+    }
+
+    this.board.board[this.head.coords[0]][this.head.coords[1]] = 1;
+
+
+    if (appleEaten) {
+      // var newTail = new Coords(this.tail.coords[0], this.tail.coords[1], this.tail.dir, this.tail, undefined);
+      //
+      // newTail.moves[this.badDirs[newTail.dir]]();
+      //
+      // this.tail.back = newTail;
+      // this.tail = newTail;
+    } else {
+      this.board.board[this.tail.coords[0]][this.tail.coords[1]] = undefined;
+      this.tail = this.tail.forward;
+    }
   };
 
   Snake.prototype.eatApple = function() {
@@ -101,6 +103,7 @@
     this.tail.back = newCoord;
     newCoord.forward = this.tail;
     this.tail = newCoord;
+    // debugger;
     console.log('ate');
   };
 

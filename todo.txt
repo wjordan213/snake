@@ -1,5 +1,5 @@
 TODO:
-
-1) apple eating
-2) giv each div a data-id and only re-render relevant divs
-3) have board render the html stuff
+1) have game end when snake hits itself
+2) change the way the board renders, both view render and board render
+3) increase frame rate and number of squares on the board
+4) encorporate sprites into game
