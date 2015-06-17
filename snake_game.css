@@ -1,12 +1,12 @@
 body {
   position: relative;
-  top: calc(50% - 400px);
-  left: calc(50% - 400px);
+  top: calc(50% - 200px);
+  left: calc(50% - 200px);
 }
 div {
   display: block;
-  width: 30px;
-  height: 30px;
+  width: 10px;
+  height: 10px;
   box-sizing: border-box;
 }
 

@@ -1,4 +1,5 @@
 TODO:
 
-1) board rendered before alert
-2) apple eating
+1) apple eating
+2) giv each div a data-id and only re-render relevant divs
+3) have board render the html stuff

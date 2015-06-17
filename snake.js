@@ -5,12 +5,12 @@
 
   // COORDS CLASS
 
-  var Coords = Snakes.Coords = function Coords(x, y, dir) {
+  var Coords = Snakes.Coords = function Coords(x, y, dir, forward, back) {
     // coord implementation will by linked list
     this.coords = [x, y];
     this.dir = dir;
-    this.back = undefined;
-    this.forward = undefined;
+    this.back = back;
+    this.forward = forward;
 
     this.plus = function(dir) {
       if (dir === 'x') {
@@ -77,6 +77,7 @@
         var x = this.board.board[cur.coords[0]][cur.coords[1]];
         if (x === 0) {
           this.eatApple();
+          this.board.assignApple();
         }
         this.board.board[cur.coords[0]][cur.coords[1]] = 1;
       }
@@ -95,6 +96,11 @@
   };
 
   Snake.prototype.eatApple = function() {
+    var newCoord = new Snakes.Coords(this.tail.coords[0], this.tail.coords[1], this.tail.dir, this.tail);
+    newCoord.moves[this.badDirs[newCoord.dir]]();
+    this.tail.back = newCoord;
+    newCoord.forward = this.tail;
+    this.tail = newCoord;
     console.log('ate');
   };
 
