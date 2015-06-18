@@ -2,7 +2,7 @@
   var View = Snakes.View = function View($el, options) {
     this.$el = $el;
     this.board = new Snakes.Board();
-    this.$el.on('keydown', this.handleKeyEvent.bind(this));
+    $('body').on('keydown', this.handleKeyEvent.bind(this));
     this.intervId = setInterval(this.step.bind(this), 300);
     this.renderBoard();
     if (options && options.callback) {
@@ -20,8 +20,9 @@
     var result = this.board.snake.move();
     if (result === false) {
       Snakes.restartGame(function() {window.alert('you lose');});
+    } else {
+      this.renderBoard();
     }
-    this.renderBoard();
   };
 
   View.prototype.renderBoard = function() {
@@ -40,21 +41,23 @@
   };
 
   Snakes.restartGame = function(callback) {
-    Snakes.currentView.$el.off();
+    $('body').off();
     clearInterval(Snakes.currentView.intervId);
-    Snakes.currentView.board.clear();
+    delete Snakes.currentView.board;
+    delete Snakes.currentView.snake;
+    delete Snakes.currentView;
     Snakes.resetDisplay();
-    Snakes.currentView = new Snakes.View($('body'), {callback: callback});
+    Snakes.currentView = new Snakes.View($('section'), {callback: callback});
   };
 
   Snakes.resetDisplay = function() {
-    $('body').html('');
+    $('section').html('');
     for (var i = 0; i < 15; i++) {
       for (var j = 0; j < 15; j++) {
-        $('body').append($('<div class="empty displayed ' + (i * 15 + j) + ' "></div>'));
+        $('section').append($('<div class="empty displayed ' + (i * 15 + j) + ' "></div>'));
       }
-      
-      $('body').append('<div class="clearfix"></div>');
+
+      $('section').append('<div class="clearfix"></div>');
     }
   };
 })();
