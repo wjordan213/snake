@@ -47,19 +47,22 @@
     this.board.board[10][10] = 1;
     this.board.occupiedSpaces.add(10 * 15 + 10);
     this.tail = this.head;
+    this.turns = [];
   };
 
   Snake.prototype.turn = function(newDir) {
-    // TODO: ternary if statement
-    if (this.badDirs[this.head.dir] === newDir) {
+    if ((this.turns.length === 0 && this.badDirs[this.head.dir] === newDir) || (this.badDirs[this.turns[this.turns.length - 1]] === newDir || this.turns.length >= 2)) {
       return false;
     } else {
-      this.head.dir = newDir;
+      this.turns.push(newDir);
     }
   };
 
   Snake.prototype.move = function() {
     // update board at this.head.coords
+    if (this.turns.length > 0) {
+      this.head.dir = this.turns.shift();
+    }
     var appleEaten;
 
     var newHead = new Coords(this.head.coords[0], this.head.coords[1], this.head.dir, undefined, this.head);

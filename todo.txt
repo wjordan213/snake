@@ -5,3 +5,4 @@ TODO:
 3) keep score and display at top right of board
 4) increase frame rate and number of squares on the board
 5) encorporate sprites into game
+6) pause the game.
