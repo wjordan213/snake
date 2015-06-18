@@ -8,12 +8,23 @@
     if (options && options.callback) {
       options.callback();
     }
+    this.status = true;
   };
 
   var dirCodes = {87: "N", 65: "W", 83: "S", 68: "E" };
 
   View.prototype.handleKeyEvent = function(event) {
-    dirCodes[event.keyCode] && this.board.snake.turn(dirCodes[event.keyCode]);
+    if (this.status) {
+      if (event.keyCode === 80) {
+        clearInterval(this.intervId);
+        this.status = false;
+      } else {
+        dirCodes[event.keyCode] && this.board.snake.turn(dirCodes[event.keyCode]);
+      }
+    } else {
+      this.intervId = setInterval(this.step.bind(this), 300);
+      this.status = true;
+    }
   };
 
   View.prototype.step = function() {

@@ -1,5 +1,7 @@
 TODO:
-1) keep score and display at top right of board
-2) increase frame rate and number of squares on the board
-3) incorporate sprites into game
-4) pause the game.
+1) incorporate sprites into game
+  -snake head
+  -snake segments
+2) pause the game.
+3) persist high score at any given session. display high score on the right of the current score
+4) style the outside
