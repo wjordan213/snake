@@ -19,7 +19,8 @@
   View.prototype.step = function() {
     var result = this.board.snake.move();
     if (result === false) {
-      Snakes.restartGame(function() {window.alert('you lose');});
+      var score = this.board.snake.length * 100;
+      Snakes.restartGame(function() {window.alert('you lose with a score of ' + score);});
     } else {
       this.renderBoard();
     }
@@ -27,9 +28,12 @@
 
   View.prototype.renderBoard = function() {
     var snakeAndApple = this.board.render();
-    var newHead = snakeAndApple[0];
-    var apple = snakeAndApple[1];
-    var emptySpot = snakeAndApple[2];
+    var newHead = snakeAndApple.newHead;
+    var apple = snakeAndApple.apple;
+    var emptySpot = snakeAndApple.emptySpot;
+    var score = snakeAndApple.score;
+
+    $('aside').html('your score is ' + score);
 
     $('div.' + (newHead[0] * 15 + newHead[1])).toggleClass('snake').removeClass('apple').removeClass('empty');
 
@@ -51,10 +55,10 @@
   };
 
   Snakes.resetDisplay = function() {
-    $('section').html('');
+    $('section.grid').html('');
     for (var i = 0; i < 15; i++) {
       for (var j = 0; j < 15; j++) {
-        $('section').append($('<div class="empty displayed ' + (i * 15 + j) + ' "></div>'));
+        $('section.grid').append($('<div class="empty displayed ' + (i * 15 + j) + ' "></div>'));
       }
 
       $('section').append('<div class="clearfix"></div>');

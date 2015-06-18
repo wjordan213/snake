@@ -1,8 +1,24 @@
 body {
-  position: relative;
-  top: calc(50% - 200px);
-  left: calc(50% - 200px);
+  height: 100%;
+  width: 100%;
 }
+
+aside {
+  display: block;
+  float: right;
+}
+
+section.gameCenter {
+  display: block;
+  width: 450px;
+  margin: 0 auto;
+  margin-top: calc(50% - 300px);
+}
+section.grid {
+  width: 100%;
+  height: auto;
+}
+
 div {
   display: block;
   width: 30px;
@@ -10,11 +26,22 @@ div {
   box-sizing: border-box;
 }
 
+section.grid:before {
+  display: block;
+  content: "";
+  clear: both;
+}
+
+section.grid:after {
+  display: block;
+  content: "";
+  clear: both;
+}
+
 .displayed {
   float: left;
   border: 1px solid black;
 }
-
 
 .empty {
   background: red;

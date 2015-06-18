@@ -43,6 +43,7 @@
     this.board.board[10][10] = 1;
     this.board.occupiedSpaces.add(10 * 15 + 10);
     this.tail = this.head;
+    this.length = 0;
     this.turns = [];
   };
 
@@ -74,6 +75,7 @@
     if (x === 0) {
       appleEaten = true;
       this.board.assignApple();
+      this.length += 1;
     }
 
     this.board.board[this.head.coords[0]][this.head.coords[1]] = 1;
@@ -129,10 +131,11 @@
   };
 
   Board.prototype.render = function() {
-    if (this.snake.emptySpot) {
-      return [this.snake.head.coords, this.appleLoc, this.snake.emptySpot];
-    } else {
-      return [this.snake.head.coords, this.appleLoc];
-    }
+    return {
+      emptySpot: this.snake.emptySpot,
+      newHead: this.snake.head.coords,
+      apple: this.appleLoc,
+      score: this.snake.length * 100
+    };
   };
 })();

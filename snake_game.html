@@ -3,7 +3,11 @@
   <link rel="stylesheet" href="./snake_game.css" media="screen" title="no title" charset="utf-8">
 </head>
 <body>
-  <section>
+  <section class="gameCenter">
+    <aside class="score">
+    </aside>
+    <section class="grid">
+    </section>
   </section>
 </body>
 <script type="text/javascript" src="./jquery-2.1.4.js"></script>
@@ -11,5 +15,5 @@
 <script type="text/javascript" src="./snake-view.js"></script>
 <script type="text/javascript">
   Snakes.resetDisplay();
-  Snakes.currentView = new Snakes.View($('section'));
+  Snakes.currentView = new Snakes.View($('section.grid'));
 </script>
