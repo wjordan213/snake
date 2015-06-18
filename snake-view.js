@@ -3,7 +3,7 @@
     this.$el = $el;
     this.board = new Snakes.Board();
     this.$el.on('keydown', this.handleKeyEvent.bind(this));
-    this.intervId = setInterval(this.step.bind(this), 500);
+    this.intervId = setInterval(this.step.bind(this), 300);
     this.renderBoard();
     if (options && options.callback) {
       options.callback();

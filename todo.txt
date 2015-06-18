@@ -1,5 +1,8 @@
 TODO:
+
 1) have game end when snake hits itself
-2) change the way the board renders, both view render and board render
-3) increase frame rate and number of squares on the board
-4) encorporate sprites into game
+2) implement dirs queue that pops at each move not empty.
+  -turn adds to queue when size is less than two
+3) change the way the board renders, both view render and board render
+4) increase frame rate and number of squares on the board
+5) encorporate sprites into game

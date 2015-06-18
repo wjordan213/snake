@@ -34,9 +34,6 @@
     this.equals = function(otherCoords) {
       return this.coords === otherCoords;
     };
-
-    this.isOpposite = function() {
-    };
   };
 
 
@@ -48,6 +45,7 @@
     this.badDirs = { "N": "S", "S": "N", "W": "E", "E": "W" };
     this.head = new Coords(10, 10, "N");
     this.board.board[10][10] = 1;
+    this.board.occupiedSpaces.add(10 * 15 + 10);
     this.tail = this.head;
   };
 
@@ -65,10 +63,8 @@
     var appleEaten;
 
     var newHead = new Coords(this.head.coords[0], this.head.coords[1], this.head.dir, undefined, this.head);
-
     newHead.moves[this.head.dir]();
-
-    if (newHead.coords[0] === 25 || newHead.coords[0] === -1 || newHead.coords[1] === -1 || newHead.coords[1] === 25) {
+    if (newHead.coords[0] === 15 || newHead.coords[0] === -1 || newHead.coords[1] === -1 || newHead.coords[1] === 15 || this.board.occupiedSpaces.has(newHead.coords[0] * 15 + newHead.coords[1])) {
       return false;
     }
 
@@ -82,50 +78,34 @@
     }
 
     this.board.board[this.head.coords[0]][this.head.coords[1]] = 1;
+    this.board.occupiedSpaces.add(this.head.coords[0] * 15 + this.head.coords[1]);
 
-
-    if (appleEaten) {
-      // var newTail = new Coords(this.tail.coords[0], this.tail.coords[1], this.tail.dir, this.tail, undefined);
-      //
-      // newTail.moves[this.badDirs[newTail.dir]]();
-      //
-      // this.tail.back = newTail;
-      // this.tail = newTail;
-    } else {
+    if (!appleEaten) {
       this.board.board[this.tail.coords[0]][this.tail.coords[1]] = undefined;
+      this.board.occupiedSpaces.delete(this.tail.coords[0] * 15 + this.tail.coords[1]);
       this.tail = this.tail.forward;
     }
-  };
-
-  Snake.prototype.eatApple = function() {
-    var newCoord = new Snakes.Coords(this.tail.coords[0], this.tail.coords[1], this.tail.dir, this.tail);
-    newCoord.moves[this.badDirs[newCoord.dir]]();
-    this.tail.back = newCoord;
-    newCoord.forward = this.tail;
-    this.tail = newCoord;
-    // debugger;
-    console.log('ate');
   };
 
 
   // BOARD CLASS
 
   var Board = Snakes.Board = function Board() {
-    this.board = new Array(25);
+    this.board = new Array(15);
+    this.occupiedSpaces = new Set();
     for (var i = 0; i < this.board.length; i++) {
-      this.board[i] = new Array(25);
+      this.board[i] = new Array(15);
     }
     this.snake = new Snake(this);
     this.assignApple();
   };
 
   Board.prototype.assignApple = function () {
-    var x = Math.floor(Math.random() * 25);
-    var y = Math.floor(Math.random() * 25);
-
+    var x = Math.floor(Math.random() * 15);
+    var y = Math.floor(Math.random() * 15);
     while (typeof this.board[x][y] !== "undefined") {
-      x = Math.floor(Math.random() * 25);
-      y = Math.floor(Math.random() * 25);
+      x = Math.floor(Math.random() * 15);
+      y = Math.floor(Math.random() * 15);
     }
 
     this.board[x][y] = 0;
@@ -143,12 +123,13 @@
         this.board[i][j] = undefined;
       }
     }
+    this.occupiedSpaces.clear();
   };
 
   Board.prototype.render = function() {
-    var renderedBoard = new Array(25);
+    var renderedBoard = new Array(15);
     for (var i = 0; i < this.board.length; i++) {
-      renderedBoard[i] = new Array(25);
+      renderedBoard[i] = new Array(15);
       for (var j = 0; j < this.board[i].length; j++) {
         // check board coords. also, board needs to be updated on each move
         if (typeof this.board[i][j] === "undefined") {
