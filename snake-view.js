@@ -25,28 +25,37 @@
   };
 
   View.prototype.renderBoard = function() {
-    this.$el.html('');
+    var snakeAndApple = this.board.render();
+    var newHead = snakeAndApple[0];
+    var apple = snakeAndApple[1];
+    var emptySpot = snakeAndApple[2];
 
-    var boardForPage = this.board.render();
-    boardForPage.forEach(function(row) {
-      row.forEach(function(element) {
-        if (element === ".") {
-          this.$el.append($('<div class="empty displayed"></div>'));
-        } else if (element === "S") {
-          this.$el.append($('<div class="snake displayed"></div>'));
-        } else {
-          this.$el.append($('<div class="apple displayed"></div>'));
-        }
-      }.bind(this));
-      this.$el.append('<div class="clearfix"></div>');
-    }.bind(this));
+    $('div.' + (newHead[0] * 15 + newHead[1])).toggleClass('snake').removeClass('apple').removeClass('empty');
+
+    $('div.' + (apple[0] * 15 + apple[1])).addClass('apple').removeClass('empty');
+
+    if (emptySpot) {
+      $('div.' + (emptySpot[0] * 15 + emptySpot[1])).toggleClass('snake').toggleClass('empty');
+    }
   };
 
   Snakes.restartGame = function(callback) {
     Snakes.currentView.$el.off();
     clearInterval(Snakes.currentView.intervId);
     Snakes.currentView.board.clear();
-
+    Snakes.resetDisplay();
     Snakes.currentView = new Snakes.View($('body'), {callback: callback});
+  };
+
+  Snakes.resetDisplay = function() {
+    $('body').html('');
+    for (var i = 0; i < 15; i++) {
+      for (var j = 0; j < 15; j++) {
+        // debugger;
+        $('body').append($('<div class="empty displayed ' + (i * 15 + j) + ' "></div>'));
+      }
+
+      $('body').append('<div class="clearfix"></div>');
+    }
   };
 })();

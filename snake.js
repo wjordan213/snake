@@ -85,8 +85,13 @@
 
     if (!appleEaten) {
       this.board.board[this.tail.coords[0]][this.tail.coords[1]] = undefined;
+
+      this.emptySpot = this.tail.coords;
+
       this.board.occupiedSpaces.delete(this.tail.coords[0] * 15 + this.tail.coords[1]);
       this.tail = this.tail.forward;
+    } else {
+      this.emptySpot = false;
     }
   };
 
@@ -110,7 +115,7 @@
       x = Math.floor(Math.random() * 15);
       y = Math.floor(Math.random() * 15);
     }
-
+    this.appleLoc = [x, y];
     this.board[x][y] = 0;
   };
 
@@ -130,21 +135,12 @@
   };
 
   Board.prototype.render = function() {
-    var renderedBoard = new Array(15);
-    for (var i = 0; i < this.board.length; i++) {
-      renderedBoard[i] = new Array(15);
-      for (var j = 0; j < this.board[i].length; j++) {
-        // check board coords. also, board needs to be updated on each move
-        if (typeof this.board[i][j] === "undefined") {
-          renderedBoard[i][j] = '.';
-        } else if (this.board[i][j] === 1) {
-          renderedBoard[i][j] = 'S';
-        } else {
-          renderedBoard[i][j] = 'a';
-        }
-      }
+    if (this.snake.emptySpot) {
+      // debugger;
+      return [this.snake.head.coords, this.appleLoc, this.snake.emptySpot];
+    } else {
+      return [this.snake.head.coords, this.appleLoc];
     }
-    return renderedBoard;
   };
 
 })();
