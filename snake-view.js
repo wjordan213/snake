@@ -51,10 +51,9 @@
     $('body').html('');
     for (var i = 0; i < 15; i++) {
       for (var j = 0; j < 15; j++) {
-        // debugger;
         $('body').append($('<div class="empty displayed ' + (i * 15 + j) + ' "></div>'));
       }
-
+      
       $('body').append('<div class="clearfix"></div>');
     }
   };

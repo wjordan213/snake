@@ -4,9 +4,8 @@
   }
 
   // COORDS CLASS
-
   var Coords = Snakes.Coords = function Coords(x, y, dir, forward, back) {
-    // coord implementation will by linked list
+    // coord implementation will be linked list
     this.coords = [x, y];
     this.dir = dir;
     this.back = back;
@@ -36,10 +35,7 @@
     };
   };
 
-
-
   // SNAKE CLASS
-
   var Snake = Snakes.Snake = function Snake(board) {
     this.board = board;
     this.badDirs = { "N": "S", "S": "N", "W": "E", "E": "W" };
@@ -95,9 +91,7 @@
     }
   };
 
-
   // BOARD CLASS
-
   var Board = Snakes.Board = function Board() {
     this.board = new Array(15);
     this.occupiedSpaces = new Set();
@@ -136,11 +130,9 @@
 
   Board.prototype.render = function() {
     if (this.snake.emptySpot) {
-      // debugger;
       return [this.snake.head.coords, this.appleLoc, this.snake.emptySpot];
     } else {
       return [this.snake.head.coords, this.appleLoc];
     }
   };
-
 })();

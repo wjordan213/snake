@@ -1,11 +1,5 @@
 TODO:
-1) change the way the board renders, both view render and board render
-  -to start:
-    -have all divs added to screen at the opening of the page.
-    -give each div a css class which determines its color.
-    -also give each one a data-id corresponding with it's position in the array
-    -when the snake view calls board.render(), just
-2) keep score and display at top right of board
-3) increase frame rate and number of squares on the board
-4) encorporate sprites into game
-5) pause the game.
+1) keep score and display at top right of board
+2) increase frame rate and number of squares on the board
+3) incorporate sprites into game
+4) pause the game.
