@@ -31,6 +31,9 @@
     var result = this.board.snake.move();
     if (result === false) {
       var score = this.board.snake.length * 100;
+      if (Snakes.highScore < score) {
+        Snakes.highScore = score;
+      }
       Snakes.restartGame(function() {window.alert('you lose with a score of ' + score);});
     } else {
       this.renderBoard();
@@ -44,7 +47,7 @@
     var emptySpot = snakeAndApple.emptySpot;
     var score = snakeAndApple.score;
 
-    $('aside').html('your score is ' + score);
+    $('aside').html('score: ' + score + '  High Score: ' + Snakes.highScore);
 
     $('div.' + (newHead[0] * 15 + newHead[1])).toggleClass('snake').removeClass('apple').removeClass('empty');
 

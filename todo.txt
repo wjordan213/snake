@@ -2,6 +2,5 @@ TODO:
 1) incorporate sprites into game
   -snake head
   -snake segments
-2) pause the game.
-3) persist high score at any given session. display high score on the right of the current score
-4) style the outside
+2) persist high score at any given session. display high score on the right of the current score
+3) style the outside
