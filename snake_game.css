@@ -1,6 +1,11 @@
+html {
+  overflow: none;
+}
+
 body {
   height: 100%;
   width: 100%;
+  overflow: hidden;
 }
 
 aside {
@@ -8,9 +13,11 @@ aside {
   float: right;
 }
 
+
 section.gameCenter {
   display: block;
   width: 450px;
+  height: 100%;
   margin: 0 auto;
   margin-top: calc(50% - 300px);
 }
@@ -44,15 +51,39 @@ section.grid:after {
 }
 
 .empty {
-  background: red;
+  background: yellow;
 }
 
 div.apple {
-  background: green;
+  background: red;
 }
 
 div.snake {
-  background: yellow;
+  background: green;
+}
+
+div.head {
+  background: orange;
+}
+
+div.tail {
+  background: pink;
+}
+
+div.N {
+
+}
+
+div.S {
+
+}
+
+div.E {
+
+}
+
+div.W {
+
 }
 
 div.clearfix:after {

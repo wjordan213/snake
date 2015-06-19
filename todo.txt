@@ -3,3 +3,8 @@ TODO:
   -snake head
   -snake segments
 2) style the outside
+
+refactoring
+-body spots is only ever one element. change that
+-break out stuff into helper functions
+-get rid of dupCoords

@@ -2,8 +2,8 @@
   var View = Snakes.View = function View($el, options) {
     this.$el = $el;
     this.board = new Snakes.Board();
-    $('body').on('keydown', this.handleKeyEvent.bind(this));
-    this.intervId = setInterval(this.step.bind(this), 300);
+    $('html').on('keydown', this.handleKeyEvent.bind(this));
+    Snakes.intervId = setInterval(this.step.bind(this), 80);
     this.renderBoard();
     if (options && options.callback) {
       options.callback();
@@ -16,13 +16,14 @@
   View.prototype.handleKeyEvent = function(event) {
     if (this.status) {
       if (event.keyCode === 80) {
-        clearInterval(this.intervId);
+        clearInterval(Snakes.intervId);
+        Snakes.intervId = undefined;
         this.status = false;
       } else {
         dirCodes[event.keyCode] && this.board.snake.turn(dirCodes[event.keyCode]);
       }
     } else {
-      this.intervId = setInterval(this.step.bind(this), 300);
+      Snakes.intervId = setInterval(this.step.bind(this), 80);
       this.status = true;
     }
   };
@@ -34,7 +35,7 @@
       if (Snakes.highScore < score) {
         Snakes.highScore = score;
       }
-      Snakes.restartGame(function() {window.alert('you lose with a score of ' + score);});
+      Snakes.restartGame();
     } else {
       this.renderBoard();
     }
@@ -46,30 +47,42 @@
     var apple = snakeAndApple.apple;
     var emptySpot = snakeAndApple.emptySpot;
     var score = snakeAndApple.score;
+    var bodySpots = snakeAndApple.bodySpots;
+    var tailSpot = snakeAndApple.tailSpot;
 
     $('aside').html('score: ' + score + '  High Score: ' + Snakes.highScore);
-
-    $('div.' + (newHead[0] * 15 + newHead[1])).toggleClass('snake').removeClass('apple').removeClass('empty');
+    // debugger;
+    $('div.' + (newHead[0] * 15 + newHead[1])).toggleClass('head').removeClass('apple empty').addClass(newHead[2]);
 
     $('div.' + (apple[0] * 15 + apple[1])).addClass('apple').removeClass('empty');
 
+    bodySpots.forEach(function(spot) {
+      $('div.' + (spot[0] * 15 + spot[1])).removeClass('head tail N S E W').addClass('snake ' + spot[2]);
+    });
+
+    $('div.' + (tailSpot[0] * 15 + tailSpot[1])).removeClass('snake head N S E W').addClass('tail ' + tailSpot[2]);
+
     if (emptySpot) {
-      $('div.' + (emptySpot[0] * 15 + emptySpot[1])).toggleClass('snake').toggleClass('empty');
+      $('div.' + (emptySpot[0] * 15 + emptySpot[1])).toggleClass('tail').addClass('empty').removeClass('N S E W');
     }
+    this.board.snake.bodySpots = [];
   };
 
   Snakes.restartGame = function(callback) {
-    $('body').off();
-    clearInterval(Snakes.currentView.intervId);
+
+    $('html').off('keydown');
+    clearInterval(Snakes.intervId);
+    Snakes.intervId = undefined;
+    delete Snakes.currentView.board.snake;
     delete Snakes.currentView.board;
-    delete Snakes.currentView.snake;
+    delete Snakes.currentView.$el;
     delete Snakes.currentView;
     Snakes.resetDisplay();
     Snakes.currentView = new Snakes.View($('section'), {callback: callback});
   };
 
   Snakes.resetDisplay = function() {
-    $('section.grid').html('');
+    $('section.gameCenter').html($('<aside class="score"></aside><section class="grid"></section>'));
     for (var i = 0; i < 15; i++) {
       for (var j = 0; j < 15; j++) {
         $('section.grid').append($('<div class="empty displayed ' + (i * 15 + j) + ' "></div>'));

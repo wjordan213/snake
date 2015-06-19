@@ -19,6 +19,10 @@
       }
     };
 
+    this.dupCoords = function(dir) {
+      return this.coords.slice(0);
+    };
+
     this.minus = function(dir) {
       if (dir === 'x') {
         this.coords[0] -= 1;
@@ -40,11 +44,14 @@
     this.board = board;
     this.badDirs = { "N": "S", "S": "N", "W": "E", "E": "W" };
     this.head = new Coords(10, 10, "N");
+    this.tail = new Coords(this.head.coords[0], this.head.coords[1], "N", this.head, undefined);
+    this.tail.moves["S"]();
+    this.head.back = this.tail;
     this.board.board[10][10] = 1;
     this.board.occupiedSpaces.add(10 * 15 + 10);
-    this.tail = this.head;
     this.length = 0;
     this.turns = [];
+    this.bodySpots = [];
   };
 
   Snake.prototype.turn = function(newDir) {
@@ -76,6 +83,10 @@
       appleEaten = true;
       this.board.assignApple();
       this.length += 1;
+    }
+
+    if (this.length >= 1) {
+      this.bodySpots.push(this.head.back.dupCoords().concat(this.head.back.dir));
     }
 
     this.board.board[this.head.coords[0]][this.head.coords[1]] = 1;
@@ -133,9 +144,11 @@
   Board.prototype.render = function() {
     return {
       emptySpot: this.snake.emptySpot,
-      newHead: this.snake.head.coords,
+      newHead: this.snake.head.coords.concat(this.snake.head.dir),
       apple: this.appleLoc,
-      score: this.snake.length * 100
+      score: this.snake.length * 100,
+      tailSpot: this.snake.tail.coords.concat(this.snake.tail.dir),
+      bodySpots: this.snake.bodySpots
     };
   };
 })();
