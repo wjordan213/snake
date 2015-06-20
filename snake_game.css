@@ -1,3 +1,14 @@
+html, body, section, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    overflow: none;
+}
+
 html {
   overflow: none;
 }
@@ -11,6 +22,7 @@ body {
 aside {
   display: block;
   float: right;
+  color: white;
 }
 
 
@@ -19,11 +31,12 @@ section.gameCenter {
   width: 450px;
   height: 100%;
   margin: 0 auto;
-  margin-top: calc(50% - 300px);
+  margin-top: calc(50% - 475px);
 }
 section.grid {
   width: 100%;
   height: auto;
+  background: black;
 }
 
 div {
@@ -59,15 +72,31 @@ div.apple {
 }
 
 div.snake {
-  background: green;
+  background-image: url(./snake_parts/sprite_2.png);
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  background-position: -7px -3px;
+  background-size: 42px;
 }
 
 div.head {
-  background: orange;
+  background-image: url(./snake_parts/sprite_1.png);
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  background-position: -10px -3px;
+  background-size: 43px;
 }
 
 div.tail {
-  background: pink;
+  border: 0;
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  background-image: url(./snake_parts/sprite_3.png);
+  background-size: 42px;
+  background-position: -7px -2px;
 }
 
 div.N {
@@ -75,15 +104,15 @@ div.N {
 }
 
 div.S {
-
+  transform: rotate(180deg);
 }
 
 div.E {
-
+  transform: translate(2%, -1%) rotate(90deg);
 }
 
 div.W {
-
+  transform: rotate(270deg);
 }
 
 div.clearfix:after {
