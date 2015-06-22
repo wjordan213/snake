@@ -2,18 +2,41 @@
   <link rel="stylesheet" href="./snake_game.css" media="screen" title="no title" charset="utf-8">
 </head>
 <body>
+  <section class="start Game">
+    <div id="transparency">
+
+    </div>
+    <div class="container">
+      <h1>Welcome to Snake!</h1>
+      <p>use wasd or the arrow keys to move</p>
+      <strong class="startGame">Click here to start</strong>
+    </div>
+  </section>
   <section class="gameCenter">
     <aside class="score">
     </aside>
     <section class="grid">
     </section>
   </section>
+  <section class="game gameOver hidden">
+    <div id="transparency">
+    </div>
+    <div class="container">
+      <h1>Game Over</h1>
+      <h2></h2>
+      <strong class="restartGame">Restart Game</strong>
+    </div>
+  </section>
 </body>
+<script type="text/javascript" src="./jquery-2.1.4.js"></script>
 <script type="text/javascript" src="./jquery-2.1.4.js"></script>
 <script type="text/javascript" src="./snake.js"></script>
 <script type="text/javascript" src="./snake-view.js"></script>
 <script type="text/javascript">
   Snakes.highScore = 0;
   Snakes.resetDisplay();
-  Snakes.currentView = new Snakes.View($('section.grid'));
+  $('strong.startGame').on('click', function() {
+    $('section.start').toggleClass('hidden');
+    Snakes.currentView = new Snakes.View($('section.grid'));
+  } )
 </script>

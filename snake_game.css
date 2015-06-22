@@ -121,3 +121,57 @@ div.clearfix:after {
   content: "";
   clear: both;
 }
+
+section.game {
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: transparent;
+}
+
+section.hidden {
+  display: none;
+}
+
+div#transparency {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  opacity: 0.9;
+  width: 100%;
+  height: 100%;
+}
+
+section.game div{
+  display: block;
+  text-align: center;
+  background: transparent;
+  position: relative;
+  top: 40px;
+  width: 200px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+h2 {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+strong {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}

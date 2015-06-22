@@ -3,6 +3,7 @@
     this.$el = $el;
     this.board = new Snakes.Board();
     $('html').on('keydown', this.handleKeyEvent.bind(this));
+    $('strong.restartGame').on('click', Snakes.restartGame);
     Snakes.intervId = setInterval(this.step.bind(this), 80);
     this.renderBoard();
     if (options && options.callback) {
@@ -11,7 +12,7 @@
     this.status = true;
   };
 
-  var dirCodes = {87: "N", 65: "W", 83: "S", 68: "E" };
+  var dirCodes = {87: "N", 38: "N", 65: "W", 37: "W", 83: "S", 40: "S", 68: "E", 39: "E" };
 
   View.prototype.handleKeyEvent = function(event) {
     if (this.status) {
@@ -35,7 +36,7 @@
       if (Snakes.highScore < score) {
         Snakes.highScore = score;
       }
-      Snakes.restartGame();
+      Snakes.gameOver();
     } else {
       this.renderBoard();
     }
@@ -68,17 +69,26 @@
     this.board.snake.bodySpots = [];
   };
 
-  Snakes.restartGame = function(callback) {
-
-    $('html').off('keydown');
+  Snakes.gameOver = function() {
     clearInterval(Snakes.intervId);
     Snakes.intervId = undefined;
+
+    $('section.gameOver').toggleClass('hidden');
+    $('section.gameOver h2').html('Score: ' + Snakes.currentView.board.snake.length * 100);
+  };
+
+  Snakes.restartGame = function(event) {
+    $('section.gameOver').toggleClass('hidden');
+    $('html').off('keydown');
+    $('strong').off('click');
+
+
     delete Snakes.currentView.board.snake;
     delete Snakes.currentView.board;
     delete Snakes.currentView.$el;
     delete Snakes.currentView;
     Snakes.resetDisplay();
-    Snakes.currentView = new Snakes.View($('section'), {callback: callback});
+    Snakes.currentView = new Snakes.View($('section'));
   };
 
   Snakes.resetDisplay = function() {
@@ -88,7 +98,7 @@
         $('section.grid').append($('<div class="empty displayed ' + (i * 15 + j) + ' "></div>'));
       }
 
-      $('section').append('<div class="clearfix"></div>');
+      $('section.gameCenter').append('<div class="clearfix"></div>');
     }
   };
 })();
