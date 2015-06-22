@@ -50,6 +50,7 @@
     this.board.board[10][10] = 1;
     this.board.occupiedSpaces.add(10 * 15 + 10);
     this.length = 0;
+    Snakes.score = 0;
     this.turns = [];
     this.bodySpots = [];
   };
@@ -83,6 +84,7 @@
       appleEaten = true;
       this.board.assignApple();
       this.length += 1;
+      Snakes.score += 100;
     }
 
     if (this.length >= 1) {
@@ -146,7 +148,6 @@
       emptySpot: this.snake.emptySpot,
       newHead: this.snake.head.coords.concat(this.snake.head.dir),
       apple: this.appleLoc,
-      score: this.snake.length * 100,
       tailSpot: this.snake.tail.coords.concat(this.snake.tail.dir),
       bodySpots: this.snake.bodySpots
     };

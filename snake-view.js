@@ -32,9 +32,8 @@
   View.prototype.step = function() {
     var result = this.board.snake.move();
     if (result === false) {
-      var score = this.board.snake.length * 100;
-      if (Snakes.highScore < score) {
-        Snakes.highScore = score;
+      if (Snakes.highScore < Snakes.score) {
+        Snakes.highScore = Snakes.score;
       }
       Snakes.gameOver();
     } else {
@@ -47,11 +46,10 @@
     var newHead = snakeAndApple.newHead;
     var apple = snakeAndApple.apple;
     var emptySpot = snakeAndApple.emptySpot;
-    var score = snakeAndApple.score;
     var bodySpots = snakeAndApple.bodySpots;
     var tailSpot = snakeAndApple.tailSpot;
 
-    $('aside').html('score: ' + score + '  High Score: ' + Snakes.highScore);
+    $('aside').html('score: ' + Snakes.score + '  High Score: ' + Snakes.highScore);
     // debugger;
     $('div.' + (newHead[0] * 15 + newHead[1])).toggleClass('head').removeClass('apple empty').addClass(newHead[2]);
 
@@ -74,7 +72,7 @@
     Snakes.intervId = undefined;
 
     $('section.gameOver').toggleClass('hidden');
-    $('section.gameOver h2').html('Score: ' + Snakes.currentView.board.snake.length * 100);
+    $('section.gameOver h2').html('Score: ' + Snakes.score);
   };
 
   Snakes.restartGame = function(event) {
