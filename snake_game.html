@@ -36,6 +36,7 @@
 <script type="text/javascript">
   Snakes.highScore = 0;
   Snakes.resetDisplay();
+  $('strong.restartGame').on('click', Snakes.restartGame);
   $('strong.startGame').on('click', function() {
     $('section.start').toggleClass('hidden');
     Snakes.currentView = new Snakes.View($('section.grid'));

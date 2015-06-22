@@ -1,14 +1,10 @@
 (function() {
-  var View = Snakes.View = function View($el, options) {
+  var View = Snakes.View = function View($el) {
     this.$el = $el;
     this.board = new Snakes.Board();
     $('html').on('keydown', this.handleKeyEvent.bind(this));
-    $('strong.restartGame').on('click', Snakes.restartGame);
     Snakes.intervId = setInterval(this.step.bind(this), 80);
     this.renderBoard();
-    if (options && options.callback) {
-      options.callback();
-    }
     this.status = true;
   };
 
@@ -42,29 +38,23 @@
   };
 
   View.prototype.renderBoard = function() {
-    var snakeAndApple = this.board.render();
-    var newHead = snakeAndApple.newHead;
-    var apple = snakeAndApple.apple;
-    var emptySpot = snakeAndApple.emptySpot;
-    var bodySpot = snakeAndApple.bodySpot;
-    var tailSpot = snakeAndApple.tailSpot;
+    var info = this.board.render();
 
     $('aside').html('score: ' + Snakes.score + '  High Score: ' + Snakes.highScore);
-    // debugger;
-    $('div.' + (newHead[0] * 15 + newHead[1])).toggleClass('head').removeClass('apple empty').addClass(newHead[2]);
 
-    $('div.' + (apple[0] * 15 + apple[1])).addClass('apple').removeClass('empty');
+    $('div.' + (info.newHead[0] * 15 + info.newHead[1])).toggleClass('head').removeClass('apple empty').addClass(info.newHead[2]);
 
-    if (bodySpot) {
-      $('div.' + (bodySpot[0] * 15 + bodySpot[1])).removeClass('head tail N S E W').addClass('snake ' + bodySpot[2]);
+    $('div.' + (info.apple[0] * 15 + info.apple[1])).addClass('apple').removeClass('empty');
+
+    if (info.bodySpot) {
+      $('div.' + (info.bodySpot[0] * 15 + info.bodySpot[1])).removeClass('head tail N S E W').addClass('snake ' + info.bodySpot[2]);
     }
 
-    $('div.' + (tailSpot[0] * 15 + tailSpot[1])).removeClass('snake head N S E W').addClass('tail ' + tailSpot[2]);
+    $('div.' + (info.tailSpot[0] * 15 + info.tailSpot[1])).removeClass('snake head N S E W').addClass('tail ' + info.tailSpot[2]);
 
-    if (emptySpot) {
-      $('div.' + (emptySpot[0] * 15 + emptySpot[1])).toggleClass('tail').addClass('empty').removeClass('N S E W');
+    if (info.emptySpot) {
+      $('div.' + (info.emptySpot[0] * 15 + info.emptySpot[1])).toggleClass('tail').addClass('empty').removeClass('N S E W');
     }
-    this.board.snake.bodySpots = [];
   };
 
   Snakes.gameOver = function() {
@@ -78,7 +68,6 @@
   Snakes.restartGame = function(event) {
     $('section.gameOver').toggleClass('hidden');
     $('html').off('keydown');
-    $('strong').off('click');
 
 
     delete Snakes.currentView.board.snake;
@@ -96,8 +85,6 @@
       for (var j = 0; j < 15; j++) {
         $('section.grid').append($('<div class="empty displayed ' + (i * 15 + j) + ' "></div>'));
       }
-
-      // $('section.gameCenter').append('<div class="clearfix"></div>');
     }
   };
 })();
