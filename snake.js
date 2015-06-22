@@ -19,10 +19,6 @@
       }
     };
 
-    this.dupCoords = function(dir) {
-      return this.coords.slice(0);
-    };
-
     this.minus = function(dir) {
       if (dir === 'x') {
         this.coords[0] -= 1;
@@ -88,7 +84,7 @@
     }
 
     if (this.length >= 1) {
-      this.bodySpot = this.head.back.dupCoords().concat(this.head.back.dir);
+      this.bodySpot = this.head.back.coords.concat(this.head.back.dir);
     }
 
     this.board.board[this.head.coords[0]][this.head.coords[1]] = 1;

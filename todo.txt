@@ -1,7 +1,6 @@
 TODO:
 
 refactoring
--body spots is only ever one element. change that
 -break out stuff into helper functions
 -get rid of dupCoords
 -see about optimizing apple assignment
