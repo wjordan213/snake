@@ -93,12 +93,13 @@
 
   Snakes.resetDisplay = function() {
     $('section.gameCenter').html($('<aside class="score"></aside><section class="grid"></section>'));
+    $('section.gameCenter').prepend('<div class="clearfix"></div>');
     for (var i = 0; i < 15; i++) {
       for (var j = 0; j < 15; j++) {
         $('section.grid').append($('<div class="empty displayed ' + (i * 15 + j) + ' "></div>'));
       }
 
-      $('section.gameCenter').append('<div class="clearfix"></div>');
+      // $('section.gameCenter').append('<div class="clearfix"></div>');
     }
   };
 })();
