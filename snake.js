@@ -64,6 +64,24 @@
     Snakes.score += 100;
   };
 
+  Snake.prototype.moveTailForward = function() {
+    this.board.assignValue(this.tail, undefined);
+    this.emptySpot = this.tail.coords;
+
+    this.board.occupiedSpaces.delete(this.tail.coords[0] * 15 + this.tail.coords[1]);
+    this.tail = this.tail.forward;
+  };
+
+  Snake.prototype.moveHeadForward = function(newHead) {
+    this.head.forward = newHead;
+    this.head = newHead;
+  };
+
+  Snake.prototype.updateBoardHead = function() {
+    this.board.assignValue(this.head, 1);
+    this.board.occupiedSpaces.add(this.head.coords[0] * 15 + this.head.coords[1]);
+  };
+
   Snake.prototype.move = function() {
     var appleEaten;
     if (this.turns.length > 0) {
@@ -75,28 +93,19 @@
     if (outOfBoundsOrOccupied.call(this, newHead)) {
       return false;
     } else {
-      this.head.forward = newHead;
-      this.head = newHead;
+      this.moveHeadForward(newHead);
     }
 
     if (this.board.valueAt(this.head) === 0) {
-      appleEaten = true;
       this.eatApple();
+    } else {
+      this.moveTailForward();
     }
+
+    this.updateBoardHead();
 
     if (this.length >= 1) {
       this.bodySpot = this.head.back.coords.concat(this.head.back.dir);
-    }
-
-    this.board.assignValue(this.head, 1);
-    this.board.occupiedSpaces.add(this.head.coords[0] * 15 + this.head.coords[1]);
-
-    if (!appleEaten) {
-      this.board.assignValue(this.tail, undefined);
-      this.emptySpot = this.tail.coords;
-
-      this.board.occupiedSpaces.delete(this.tail.coords[0] * 15 + this.tail.coords[1]);
-      this.tail = this.tail.forward;
     }
   };
 
@@ -131,7 +140,6 @@
   };
 
   Board.prototype.clear = function () {
-    // clears the snake off the board and all the elements about the snake off the board
     delete this.snake;
     this.clearBoard();
   };
