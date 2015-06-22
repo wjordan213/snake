@@ -10,7 +10,7 @@
       <div class="container">
         <h1>Welcome to Snake!</h1>
         <p>use wasd or the arrow keys to move</p>
-        <strong class="startGame">Click here to start</strong>
+        <strong class="startGame">Press any key to start</strong>
       </div>
     </section>
     <section class="game gameOver hidden">
@@ -19,7 +19,7 @@
       <div class="container">
         <h1>Game Over</h1>
         <h2></h2>
-        <strong class="restartGame">Restart Game</strong>
+        <strong class="restartGame">Press any key to restart</strong>
       </div>
     </section>
     <section class="gameCenter">
@@ -36,8 +36,8 @@
 <script type="text/javascript">
   Snakes.highScore = 0;
   Snakes.resetDisplay();
-  $('strong.restartGame').on('click', Snakes.restartGame);
-  $('strong.startGame').on('click', function() {
+  $('html').on('keypress', function() {
+    $('html').off('keypress');
     $('section.start').toggleClass('hidden');
     Snakes.currentView = new Snakes.View($('section.grid'));
   } )

@@ -60,7 +60,9 @@
   Snakes.gameOver = function() {
     clearInterval(Snakes.intervId);
     Snakes.intervId = undefined;
-
+    setTimeout(function() {
+      $('html').on('keydown', Snakes.restartGame);
+    }, 500);
     $('section.gameOver').toggleClass('hidden');
     $('section.gameOver h2').html('Score: ' + Snakes.score);
   };

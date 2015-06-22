@@ -1,5 +1,7 @@
 TODO:
 
+1) rename to index
+
 refactoring
 -break out stuff into helper functions
 -see about optimizing apple assignment

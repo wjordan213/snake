@@ -198,13 +198,7 @@ p {
 }
 
 strong {
-  color: blue;
-  text-decoration: underline;
-  cursor: pointer;
+  font-size: 18px;
   position: relative;
   z-index: 1;
-}
-
-.displayed.head.e {
-  /*width: 28px;*/
 }
