@@ -1,6 +1,4 @@
 TODO:
-2) namespace score and display highscore on restart gameOver
-4) style the outside
 
 refactoring
 -body spots is only ever one element. change that

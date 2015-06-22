@@ -52,7 +52,7 @@
     this.length = 0;
     Snakes.score = 0;
     this.turns = [];
-    this.bodySpots = [];
+    this.bodySpot = undefined;
   };
 
   Snake.prototype.turn = function(newDir) {
@@ -88,7 +88,7 @@
     }
 
     if (this.length >= 1) {
-      this.bodySpots.push(this.head.back.dupCoords().concat(this.head.back.dir));
+      this.bodySpot = this.head.back.dupCoords().concat(this.head.back.dir);
     }
 
     this.board.board[this.head.coords[0]][this.head.coords[1]] = 1;
@@ -149,7 +149,7 @@
       newHead: this.snake.head.coords.concat(this.snake.head.dir),
       apple: this.appleLoc,
       tailSpot: this.snake.tail.coords.concat(this.snake.tail.dir),
-      bodySpots: this.snake.bodySpots
+      bodySpot: this.snake.bodySpot
     };
   };
 })();

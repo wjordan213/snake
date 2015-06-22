@@ -46,7 +46,7 @@
     var newHead = snakeAndApple.newHead;
     var apple = snakeAndApple.apple;
     var emptySpot = snakeAndApple.emptySpot;
-    var bodySpots = snakeAndApple.bodySpots;
+    var bodySpot = snakeAndApple.bodySpot;
     var tailSpot = snakeAndApple.tailSpot;
 
     $('aside').html('score: ' + Snakes.score + '  High Score: ' + Snakes.highScore);
@@ -55,9 +55,9 @@
 
     $('div.' + (apple[0] * 15 + apple[1])).addClass('apple').removeClass('empty');
 
-    bodySpots.forEach(function(spot) {
-      $('div.' + (spot[0] * 15 + spot[1])).removeClass('head tail N S E W').addClass('snake ' + spot[2]);
-    });
+    if (bodySpot) {
+      $('div.' + (bodySpot[0] * 15 + bodySpot[1])).removeClass('head tail N S E W').addClass('snake ' + bodySpot[2]);
+    }
 
     $('div.' + (tailSpot[0] * 15 + tailSpot[1])).removeClass('snake head N S E W').addClass('tail ' + tailSpot[2]);
 
