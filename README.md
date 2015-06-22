@@ -15,3 +15,8 @@ Javascript, HTML5, CSS3, JQuery
 - The Snake is itself stored as a linked list which allows for only having to deal with the head and the tail of the snake at each iteration of the game
 
 - The direction commands are stored in a queue instead of being immediately assigned to the snake object. This prevents the snake from turning into itself and allows the user to make two moves (i.e. quick turnarounds) in one frame and for both moves to be registered
+
+- sprites are used to represent the snake's head, body, and tail
+
+- The direction of each segment of the snake is stored in its corresponding linked list element
+  - this information, along with the information representing whether the segment is the snake's head, body, or tail, is used to choose and orient the appropriate sprites.
