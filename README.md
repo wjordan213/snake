@@ -16,7 +16,7 @@ Javascript, HTML5, CSS3, JQuery
 
 - The direction commands are stored in a queue instead of being immediately assigned to the snake object. This prevents the snake from turning into itself and allows the user to make two moves (i.e. quick turnarounds) in one frame and for both moves to be registered
 
-- sprites are used to represent the snake's head, body, and tail
+- images are used to represent the snake's head, body, and tail, as well as the cherries
 
 - The direction of each segment of the snake is stored in its corresponding linked list element
-  - this information, along with the information representing whether the segment is the snake's head, body, or tail, is used to choose and orient the appropriate sprites.
+  - this information, along with the information representing whether the segment is the snake's head, body, or tail, is used to choose and orient the appropriate images.
