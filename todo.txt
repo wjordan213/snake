@@ -1,7 +1,5 @@
 TODO:
-1) style restart game
 2) namespace score and display highscore on restart gameOver
-3) create initial view of same style as restart
 4) style the outside
 
 refactoring
