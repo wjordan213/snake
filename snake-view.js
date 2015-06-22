@@ -69,10 +69,6 @@
     $('section.gameOver').toggleClass('hidden');
     $('html').off('keydown');
 
-
-    delete Snakes.currentView.board.snake;
-    delete Snakes.currentView.board;
-    delete Snakes.currentView.$el;
     delete Snakes.currentView;
     Snakes.resetDisplay();
     Snakes.currentView = new Snakes.View($('section'));
