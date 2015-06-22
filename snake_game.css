@@ -191,6 +191,12 @@ h2 {
   z-index: 1;
 }
 
+p {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 10px;
+}
+
 strong {
   color: blue;
   text-decoration: underline;
