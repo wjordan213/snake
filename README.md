@@ -1,4 +1,4 @@
-# Snake
+# Snake 
 
 ## Description
 A remake of the classic arcade game Snake for the browser
