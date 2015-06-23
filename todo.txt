@@ -3,4 +3,4 @@ TODO:
 refactoring
 -break out stuff into helper functions
 -see about optimizing apple assignment
--optimize jquery ref with set
+-optimize jquery ref with set 
