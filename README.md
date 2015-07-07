@@ -1,5 +1,7 @@
 # Snake 
 
+* [Main site][Main]
+[Main]: http://www.harrisjordan.info/snake
 ## Description
 A remake of the classic arcade game Snake for the browser
 
